@@ -1,0 +1,15 @@
+debug: false
+
+logging:
+  config: classpath:log4j2.xml
+
+baseClass:
+  isExtend: false
+  name: AbstractBaseEntity
+
+validateGroup:
+  enable: true
+  name:   Insert
+
+xCode:
+  targetDir: gencode

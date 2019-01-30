@@ -1,0 +1,5 @@
+datasource:
+  driverClassName: oracle.jdbc.driver.OracleDriver
+  url: oracle:thin:@192.168.0.192:1521:orcl
+  username: xuzhouweb
+  password: xzkingdeejava

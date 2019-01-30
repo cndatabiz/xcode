@@ -1,0 +1,6 @@
+datasource:
+  driverClassName: com.mysql.cj.jdbc.Driver
+  username: root
+  password: 123567
+  url: jdbc:mysql://192.168.0.191:3306/rcmarketweb2?useLegacyDatetimeCode=false&
+                                                    serverTimezone=Asia/Shanghai&useSSL=false
