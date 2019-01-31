@@ -44,8 +44,8 @@ public class AppBeanConfig {
         hds.setUsername(username);
         hds.setPassword(password);
 
-        hds.setMaximumPoolSize(100);
-        hds.setMinimumIdle(10);
+        hds.setMaximumPoolSize(2);
+        hds.setMinimumIdle(2);
         hds.setConnectionTestQuery("select 1 from dual");
 
         return hds;
