@@ -15,6 +15,9 @@ application.properties 是用户配置,用于配置具体数据库连接, 代码
 3、启动程序
 java -jar -Dfile.encoding=UTF8 xcode-5.1.jar
 
+切换数据库连接
+java -jar -Dfile.encoding=UTF8 xcode-5.1.jar --spring.profiles.active=mysql
+
 4、生成代码
 用户设置好相关配置后，在shell命令行输入命令: xcode 即生成代码。exit 命令退出。
 
