@@ -41,8 +41,8 @@ public interface IMetaData {
      * @return 实体对象
      */
     default CmEntity buildEntity(String entityName, Map<String, Object> retMap) {
-
-        CmEntity cmEntity = CmEntity.of(retMap.get("CDESC").toString(), retMap.get("CNAME").toString());
+        String desc = retMap.get("CDESC") == null ? retMap.get("CNAME").toString() :  retMap.get("CDESC").toString();
+        CmEntity cmEntity = CmEntity.of(desc, retMap.get("CNAME").toString());
         cmEntity.setFields(queryFieldMeta(entityName.toUpperCase()));
 
         return cmEntity;
