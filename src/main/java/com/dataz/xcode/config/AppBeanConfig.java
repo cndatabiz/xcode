@@ -46,7 +46,6 @@ public class AppBeanConfig {
 
         hds.setMaximumPoolSize(2);
         hds.setMinimumIdle(2);
-        hds.setConnectionTestQuery("select 1 from dual");
 
         return hds;
     }
