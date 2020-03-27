@@ -29,8 +29,9 @@ dependencies {
     compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
 
     // JDBC Driver
-    runtime 'com.oracle.jdbc:ojdbc6:11.2.0.4'
-    runtime group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+    runtimeOnly 'com.oracle.jdbc:ojdbc6:11.2.0.4'
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
 
     // Hikari Connection Pool
     compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.6'
@@ -44,5 +45,6 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
     }
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor('org.projectlombok:lombok')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
