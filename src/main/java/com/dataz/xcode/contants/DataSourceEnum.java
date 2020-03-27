@@ -1,5 +1,9 @@
 package com.dataz.xcode.contants;
 
+/**
+ * 数据库名称枚举
+ * @author Tommy
+ */
 public enum DataSourceEnum {
     /**
      * oracle
@@ -14,5 +18,10 @@ public enum DataSourceEnum {
     /**
      * sql server
      */
-    SQLSERVER
+    SQLSERVER,
+
+    /**
+     * postgreSql
+     */
+    POSTGRESQL
 }
