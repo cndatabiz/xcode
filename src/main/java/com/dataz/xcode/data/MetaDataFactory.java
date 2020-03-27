@@ -16,6 +16,7 @@ import java.util.Optional;
  */
 @Component
 public class MetaDataFactory{
+
     @Getter
     private IMetaData metaData;
 
@@ -27,6 +28,8 @@ public class MetaDataFactory{
             case MYSQL:
                 metaData = new MysqlMetaData(jdbcTemplate);
                 break;
+            case POSTGRESQL:
+                metaData = new PostgreSqlMetaData(jdbcTemplate);
             default:
         }
     }
@@ -38,6 +41,8 @@ public class MetaDataFactory{
                 break;
             case MYSQL:
                 context.put("dbType", DataSourceEnum.MYSQL.toString());
+            case POSTGRESQL:
+                context.put("dbType", DataSourceEnum.POSTGRESQL.toString());
                 break;
             default:
         }
