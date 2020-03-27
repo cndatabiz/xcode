@@ -1,6 +1,6 @@
 package com.dataz.xcode.data;
 
-import com.dataz.xcode.contants.SQLContants;
+import com.dataz.xcode.contants.SqlConstant;
 import com.dataz.xcode.entity.CmEntity;
 import com.dataz.xcode.entity.CmField;
 import javafx.util.Pair;
@@ -47,11 +47,11 @@ public class OracleMetaData implements IMetaData {
 
     @Override
     public List<CmField> queryFieldMeta(String entityName) {
-        return jdbcTemplate.query(SQLContants.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
+        return jdbcTemplate.query(SqlConstant.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
     }
 
     private List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
-        String entitySql = SQLContants.ORACLE_ENTITY_SQL;
+        String entitySql = SqlConstant.ORACLE_ENTITY_SQL;
         String condition ;
         Pair<String, String> pair = buildQueryEntitySql(entityName, entitySql, isLike);
 

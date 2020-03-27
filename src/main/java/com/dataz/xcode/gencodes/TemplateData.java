@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 
 import static com.dataz.xcode.contants.ClsFileContants.*;
 import static com.dataz.xcode.contants.FtlContants.*;
-import static com.dataz.xcode.contants.SQLContants.CREATE_BY;
-import static com.dataz.xcode.contants.SQLContants.UPDATE_BY;
+import static com.dataz.xcode.contants.SqlConstant.CREATE_BY;
+import static com.dataz.xcode.contants.SqlConstant.UPDATE_BY;
 import static com.dataz.xcode.utils.ConvertUtil.*;
 
 /**

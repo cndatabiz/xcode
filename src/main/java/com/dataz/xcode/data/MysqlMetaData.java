@@ -1,6 +1,6 @@
 package com.dataz.xcode.data;
 
-import com.dataz.xcode.contants.SQLContants;
+import com.dataz.xcode.contants.SqlConstant;
 import com.dataz.xcode.entity.CmEntity;
 import com.dataz.xcode.entity.CmField;
 import javafx.util.Pair;
@@ -56,7 +56,7 @@ public class MysqlMetaData implements IMetaData {
     }
 
     private List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
-        String entitySql = SQLContants.MYSQL_ENTITY_SQL;
+        String entitySql = SqlConstant.MYSQL_ENTITY_SQL;
         entitySql += " WHERE A.TABLE_SCHEMA = ? ";
 
         String condition ;
@@ -72,9 +72,9 @@ public class MysqlMetaData implements IMetaData {
 
     @Override
     public List<CmField> queryFieldMeta(String entityName) {
-        log.debug("query field info sql : {}", SQLContants.MYSQL_FIELD_SQL);
+        log.debug("query field info sql : {}", SqlConstant.MYSQL_FIELD_SQL);
 
         return jdbcTemplate
-            .query(SQLContants.MYSQL_FIELD_SQL, new CFieldRowMapper(), entityName.toUpperCase(), catalog);
+            .query(SqlConstant.MYSQL_FIELD_SQL, new CFieldRowMapper(), entityName.toUpperCase(), catalog);
     }
 }

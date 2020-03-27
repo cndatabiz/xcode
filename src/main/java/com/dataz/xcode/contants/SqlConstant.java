@@ -10,7 +10,7 @@ import java.util.List;
  * @author tommy create on 2018-04-26-11:30
  */
 
-public class SQLContants {
+public class SqlConstant {
 
     public static String ORACLE_ENTITY_SQL =
         "SELECT A.TABLE_NAME CNAME , B.COMMENTS CDESC " +
@@ -40,7 +40,7 @@ public class SQLContants {
 
     public static String POSTGRESQL_ENTITY_SQL =
         "SELECT A.relname CNAME, pg_catalog.obj_description (A.oid) AS CDESC " +
-        " FROM pg_catalog.pg_class A  " ;
+        " FROM pg_catalog.pg_class A  Where 1=1 " ;
 
     public static String POSTGRESQL_FIELD_SQL =
         "SELECT A.attname AS colName, b.description AS colDesc, A.atttypmod AS dataLength, " +

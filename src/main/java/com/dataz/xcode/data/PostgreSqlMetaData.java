@@ -1,7 +1,6 @@
 package com.dataz.xcode.data;
 
-import com.dataz.xcode.contants.DataSourceEnum;
-import com.dataz.xcode.contants.SQLContants;
+import com.dataz.xcode.contants.SqlConstant;
 import com.dataz.xcode.entity.CmEntity;
 import com.dataz.xcode.entity.CmField;
 import com.google.common.base.Strings;
@@ -49,11 +48,11 @@ public class PostgreSqlMetaData implements IMetaData {
 
     @Override
     public List<CmField> queryFieldMeta(String entityName) {
-        return jdbcTemplate.query(SQLContants.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
+        return jdbcTemplate.query(SqlConstant.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
     }
 
     private List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
-        String entitySql = SQLContants.POSTGRESQL_ENTITY_SQL;
+        String entitySql = SqlConstant.POSTGRESQL_ENTITY_SQL;
         String condition ;
         Pair<String, String> pair = buildQueryEntitySql(entityName, entitySql, isLike);
 

@@ -23,6 +23,10 @@ repositories {
     maven { url = 'http://192.168.0.152:8081/repository/maven-public/' }
 }
 
+bootRun {
+    standardInput = System.in
+}
+
 dependencies {
     // guava tools
     compile group: 'com.google.guava', name: 'guava', version: '23.0'

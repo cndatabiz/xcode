@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.dataz.xcode.contants.SQLContants.SYS_FILEDS_LIST;
+import static com.dataz.xcode.contants.SqlConstant.SYS_FILEDS_LIST;
 import static com.dataz.xcode.utils.ConvertUtil.dbTypeToJavaType;
 import static com.dataz.xcode.utils.ConvertUtil.fieldToProperty;
 

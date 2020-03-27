@@ -56,6 +56,8 @@ public class AppBeanConfig {
             return DataSourceEnum.MYSQL;
         }else if (driverClassName.contains(DataSourceEnum.ORACLE.name().toLowerCase())){
             return DataSourceEnum.ORACLE;
+        }else if (driverClassName.contains(DataSourceEnum.POSTGRESQL.name().toLowerCase())){
+            return DataSourceEnum.POSTGRESQL;
         }
 
         return null;
