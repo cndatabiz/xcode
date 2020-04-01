@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ${instanceName}Req is a Request entity object Add Or Modify.
+ * ${instanceName}Req is a Request entity object for Adding Or Modification.
  * @author Coder
  */
 

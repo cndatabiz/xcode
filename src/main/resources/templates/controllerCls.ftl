@@ -23,7 +23,7 @@ import ${entityPackage}.${entityClassName};
  */
 @RestController
 @RequestMapping(name = "${entityDesc}管理", path = "/admin/${instanceName?uncap_first}")
-public class ${instanceName}ManageController {
+public class ${instanceName}Controller {
 
     private final ${instanceName}Biz ${instanceName?uncap_first}Biz;
 
@@ -38,15 +38,15 @@ public class ${instanceName}ManageController {
     /**
      * 新增${entityDesc}
      */
-    @PostMapping(name = "新增${entityDesc}", path = "/add")
-    public ${instanceName}Vo add${instanceName}(@Validated({Insert.class,Default.class}) ${instanceName}Req req) {
+    @PostMapping(name = "新增${entityDesc}", path = "/create")
+    public ${instanceName}Vo create${instanceName}(@Validated({Insert.class,Default.class}) ${instanceName}Req req) {
         <#if propNameList?seq_contains("createBy")>
         req.setCreateBy(authenticationFacade.getUserId());
         </#if>
         <#if propNameList?seq_contains("createDept")>
         req.setCreateDept(authenticationFacade.getOrgId());
         </#if>
-        ${entityClassName} ${instanceName?uncap_first} = ${instanceName?uncap_first}Biz.add(req);
+        ${entityClassName} ${instanceName?uncap_first} = ${instanceName?uncap_first}Biz.add${instanceName}(req);
 
         return ${instanceName}Vo.of(${instanceName?uncap_first});
     }
@@ -56,7 +56,7 @@ public class ${instanceName}ManageController {
      */
     @GetMapping(name = "查询${entityDesc}列表", path = "/search")
     public PageListJsonResult<${instanceName}Vo> search${instanceName}(@QuerydslPredicate(root = ${entityClassName}.class) Predicate predicate, Pageable pageable) {
-        Page<${entityClassName}> entities = ${instanceName?uncap_first}Biz.queryByPage(predicate, pageable);
+        Page<${entityClassName}> entities = ${instanceName?uncap_first}Biz.query${instanceName}ByPage(predicate, pageable);
 
         return new PageListJsonResult<>(entities.map(${instanceName}Vo::of));
     }
@@ -79,7 +79,7 @@ public class ${instanceName}ManageController {
         <#if propNameList?seq_contains("updateBy")>
         req.setUpdateBy(authenticationFacade.getUserId());
         </#if>
-        ${entityClassName} ${instanceName?uncap_first} = ${instanceName?uncap_first}Biz.modify(req);
+        ${entityClassName} ${instanceName?uncap_first} = ${instanceName?uncap_first}Biz.modify${instanceName}(req);
 
         return ${instanceName}Vo.of(${instanceName?uncap_first});
     }
@@ -89,7 +89,7 @@ public class ${instanceName}ManageController {
     */
     @PostMapping(name = "删除${entityDesc}", path = "/remove")
     public void remove${instanceName}(@RequestParam String id) {
-        ${instanceName?uncap_first}Biz.removeById(id);
+        ${instanceName?uncap_first}Biz.remove${instanceName}ById(id);
     }
 
 }

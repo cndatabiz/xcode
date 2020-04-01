@@ -9,6 +9,7 @@ config 目录是配置文件; gencode生成代码目录; readme.txt是用户指�
 application.yml 是系统和一些公共配置,一般不需要更改;
 application-mysql.yml  配置mysql数据库连接;
 application-oracle.yml 配置oracle数据库连接;
+application-postgresql.yml 配置postgresql数据库连接;
 
 application.properties 是用户配置,用于配置具体数据库连接, 代码包前缀以及需要生成表名称配置.
 

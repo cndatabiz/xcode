@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * ${entityDesc} Controller
+ * ${entityDesc} Entity
  * @author Coder
  */
 
