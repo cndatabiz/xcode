@@ -48,18 +48,18 @@ public class PostgreSqlMetaData implements IMetaData {
 
     @Override
     public List<CmField> queryFieldMeta(String entityName) {
-        return jdbcTemplate.query(SqlConstant.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
+        return jdbcTemplate.query(SqlConstant.POSTGRESQL_FIELD_SQL,new CFieldRowMapper(),entityName);
     }
 
     private List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
+        log.info("table name:{}", entityName);
         String entitySql = SqlConstant.POSTGRESQL_ENTITY_SQL;
-        String condition ;
         Pair<String, String> pair = buildQueryEntitySql(entityName, entitySql, isLike);
 
-        condition = pair.getKey();
+        String condition = pair.getKey();
         entitySql = pair.getValue();
 
-        log.debug("query table info sql : {}", entitySql);
+        log.info("query table info sql : {}", entitySql);
         return jdbcTemplate.queryForList(entitySql, condition);
     }
 
@@ -69,10 +69,10 @@ public class PostgreSqlMetaData implements IMetaData {
 
         if (!Strings.isNullOrEmpty(entityName)) {
             if (isLike){
-                entitySql += " AND A.relname like ? ";
+                entitySql += " AND upper(A.relname) ilike ? ";
                 condition = "%" + condition + "%";
             }else {
-                entitySql += " AND A.relname = ? ";
+                entitySql += " AND upper(A.relname) = ? ";
             }
         }
 

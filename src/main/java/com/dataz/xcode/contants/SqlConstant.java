@@ -40,7 +40,7 @@ public class SqlConstant {
 
     public static String POSTGRESQL_ENTITY_SQL =
         "SELECT A.relname CNAME, pg_catalog.obj_description (A.oid) AS CDESC " +
-        " FROM pg_catalog.pg_class A  Where 1=1 " ;
+        " FROM pg_catalog.pg_class A  Where 1=1 AND relkind = 'r' " ;
 
     public static String POSTGRESQL_FIELD_SQL =
         "SELECT A.attname AS colName, b.description AS colDesc, A.atttypmod AS dataLength, " +
@@ -48,7 +48,7 @@ public class SqlConstant {
         " case A.attnotnull when 't' then 'N' else 'Y' end AS nullable " +
         " FROM pg_class C, pg_attribute A" +
         " LEFT JOIN pg_description b ON A.attrelid = b.objoid AND A.attnum = b.objsubid, pg_type T "+
-        " WHERE C .relname = ? AND A.attnum > 0 AND A.attrelid = C.oid AND A.atttypid = T.oid"+
+        " WHERE upper(C.relname) = ? AND A.attnum > 0 AND A.attrelid = C.oid AND A.atttypid = T.oid"+
         " ORDER BY A.attnum";
 
 
