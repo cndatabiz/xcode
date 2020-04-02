@@ -1,7 +1,6 @@
 package ${daoPackage};
 
 import ${entityPackage}.${entityClassName};
-import com.xzkingdee.wcm.dao.common.repository.CustomBaseRepository;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.lang.NonNull;

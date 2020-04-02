@@ -81,10 +81,10 @@ public class ClsFileContants {
         String fullPackage = "";
         switch (packageType) {
             case entity:
-                fullPackage = basePackage.concat(".entities");
+                fullPackage = basePackage.concat(".entity");
                 break;
             case dao:
-                fullPackage = basePackage.concat(".repositories");
+                fullPackage = basePackage.concat(".repository");
                 break;
             case biz:
                 fullPackage = basePackage.concat(".biz");
@@ -93,13 +93,13 @@ public class ClsFileContants {
                 fullPackage = basePackage.concat(".biz.impl");
                 break;
             case web:
-                fullPackage = basePackage.concat(".controllers");
+                fullPackage = basePackage.concat(".controller");
                 break;
             case vo:
-                fullPackage = basePackage.concat(".biz.domain.vo");
+                fullPackage = basePackage.concat(".vo");
                 break;
             case req:
-                fullPackage = basePackage.concat(".biz.domain.req");
+                fullPackage = basePackage.concat(".req");
                 break;
             default:
         }
@@ -108,7 +108,7 @@ public class ClsFileContants {
 
     public static void initPackageVariable(Map<String, Object> map, String basePageName) {
         Arrays.stream(PackageEnum.values()).forEach(
-            packageEnum -> map.put(packageEnum.getPackageType(), getFullPackage(basePageName, packageEnum)
-        ));
+                packageEnum -> map.put(packageEnum.getPackageType(), getFullPackage(basePageName, packageEnum)
+                ));
     }
 }

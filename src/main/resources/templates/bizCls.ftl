@@ -16,7 +16,7 @@ public interface ${instanceName}Biz extends CommonBiz<${entityClassName},String>
     * @param pageable    分页参数
     * @return ${entityDesc}列表
     */
-    Page<${entityClassName}> query${instanceName}ByPage(Predicate predicate, Pageable pageable);
+    Page<${entityClassName}> queryByPage(Predicate predicate, Pageable pageable);
 
     /**
     * 根据${entityDesc}ID查询数量
@@ -24,24 +24,24 @@ public interface ${instanceName}Biz extends CommonBiz<${entityClassName},String>
     * @param id ${entityDesc}ID
     * @return 数量
     */
-    long countBy${instanceName}Id(String id);
+    long countById(String id);
 
     /**
     * 新增${entityDesc}
     * @return     返回保存后实体对象
     */
-    ${entityClassName} add${instanceName}(${instanceName}Req req);
+    ${entityClassName} add(${instanceName}Req req);
 
     /**
     * 修改${entityDesc}
     * @return     返回保存后实体对象
     */
-    ${entityClassName} modify${instanceName}(${instanceName}Req req);
+    ${entityClassName} modify(${instanceName}Req req);
 
     /**
     * 删除${entityDesc}
     *
     * @param id ${entityDesc}ID
     */
-    void remove${instanceName}(String id);
+    void remove(String id);
 }

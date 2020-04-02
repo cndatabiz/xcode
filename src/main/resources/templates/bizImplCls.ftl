@@ -35,7 +35,7 @@ class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${
     * @return ${entityDesc}列表
     */
     @Override
-    Page<${instanceName}Vo> query${instanceName}ByPage(Predicate predicate, Pageable pageable){
+    Page<${instanceName}Vo> queryByPage(Predicate predicate, Pageable pageable){
         Page<${entityClassName}> page = queryByPage(predicate, pageable);
         return new PageListJsonResult<>(page.map(entity -> mapper.map(entity, ${instanceName}Vo.class)));
     }
@@ -47,7 +47,7 @@ class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${entityClassName} add${instanceName}(${instanceName}Req req) {
+    public ${entityClassName} add(${instanceName}Req req) {
         ${entityClassName} entity = mapper.map(req, ${entityClassName}.class);
         <#if propNameList?seq_contains("createDate")>
         entity.setCreateDate(LocalDateTime.now());
@@ -60,7 +60,7 @@ class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${entityClassName} modify${instanceName}(${instanceName}Req req) {
+    public ${entityClassName} modify(${instanceName}Req req) {
         ${entityClassName} entity = fetchById(req.getId());
         mapper.map(req, entity);
         <#if propNameList?seq_contains("updateDate")>
@@ -72,7 +72,7 @@ class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    void remove${instanceName}(String id){
+    void remove(String id){
         repository.deleteById(id);
     }
 }

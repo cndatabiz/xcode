@@ -1,6 +1,5 @@
 package com.dataz.xcode.utils;
 
-import com.dataz.xcode.contants.DataSourceEnum;
 import com.dataz.xcode.entity.CmField;
 import com.google.common.base.CaseFormat;
 
@@ -33,7 +32,7 @@ public class ConvertUtil {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, field);
     }
 
-    public static String dbTypeToJavaType(CmField field, String databaseType) {
+    public static String dbTypeToJavaType(CmField field) {
         String javaType = "";
         String dataType = field.getDataType().toUpperCase();
         switch (dataType) {
@@ -52,8 +51,9 @@ public class ConvertUtil {
                 javaType = getJavaNumberType(field);
                 break;
             case "DATE":
+            case "TIMESTAMP":
             case "DATETIME":
-                javaType = convertJavaType(dataType, databaseType);
+                javaType = convertJavaType(dataType);
                 break;
             case "BOOLEAN":
                 javaType = "Boolean";
@@ -63,9 +63,9 @@ public class ConvertUtil {
         return javaType;
     }
 
-    private static String convertJavaType(String dataType, String databaseType){
-        if (databaseType.equals(DataSourceEnum.MYSQL.toString())){
-           return "DATE".equals(dataType) ? "LocalDate" : "LocalDateTime";
+    private static String convertJavaType(String dataType){
+        if ("DATE".equals(dataType)){
+            return "LocalDate";
         }else{
             return "LocalDateTime";
         }
@@ -105,7 +105,7 @@ public class ConvertUtil {
         StringBuilder result = new StringBuilder();
         if (!isNull) {
             result.append("@NotNull(")
-                .append("message = \"").append(field.getFieldDesc()).append("不能为空.\"");
+                    .append("message = \"").append(field.getFieldDesc()).append("不能为空.\"");
             if ("true".equalsIgnoreCase(enableValidateGroup)) {
                 result.append(", group = ").append(validateGroupName).append(".class");
             }
@@ -122,7 +122,7 @@ public class ConvertUtil {
 
         StringBuilder result = new StringBuilder();
         result.append("@Column(")
-            .append("name = \"").append(field.getFieldName()).append("\"");
+                .append("name = \"").append(field.getFieldName()).append("\"");
         if (field.getDataType().contains("CHAR")) {
             result.append(", length = ").append(field.getDataLength());
         }
@@ -140,7 +140,7 @@ public class ConvertUtil {
      * @return      输入格式化注解字符串
      */
     public static String getAnnInFormat(CmField field){
-        String javaType = dbTypeToJavaType(field, "");
+        String javaType = dbTypeToJavaType(field);
         switch (javaType) {
             case LOCAL_DATE:
                 return "@DateTimeFormat(pattern = STD_DATE_FMT_PATTERN)";
@@ -157,7 +157,7 @@ public class ConvertUtil {
      * @return       输出格式化注解字符串
      */
     public static String getAnnOutFormat(CmField field){
-        String javaType = dbTypeToJavaType(field, "");
+        String javaType = dbTypeToJavaType(field);
         switch (javaType) {
             case LOCAL_DATE:
                 return "@JsonFormat(pattern = STD_DATE_FMT_PATTERN, shape = JsonFormat.Shape.STRING)";
@@ -173,7 +173,7 @@ public class ConvertUtil {
      * public final StringPath itemName = createString("itemName");
      */
     public static String getQueryFieldStr(CmField field) {
-        String javaType = dbTypeToJavaType(field, "");
+        String javaType = dbTypeToJavaType(field);
         String property = fieldToProperty(field.getFieldName());
 
         StringBuilder result = new StringBuilder();
@@ -182,53 +182,51 @@ public class ConvertUtil {
         // public final StringPath itemName = createString("itemName");
         if (STRING.equals(javaType)) {
             result.append("StringPath ")
-                .append(property)
-                .append(" = createString(\"")
-                .append(property)
-                .append("\")");
+                    .append(property)
+                    .append(" = createString(\"")
+                    .append(property)
+                    .append("\")");
         }
 
         //public final DateTimePath<java.time.LocalDateTime> updateDate;
         if (LOCAL_DATE_TIME.equals(javaType)) {
             result.append(" DateTimePath<java.time.LocalDateTime> ")
-                .append(property)
-                .append(" = createDateTime(\"").append(property).append("\",")
-                .append("java.time.LocalDateTime.class)");
+                    .append(property)
+                    .append(" = createDateTime(\"").append(property).append("\",")
+                    .append("java.time.LocalDateTime.class)");
         }
 
         //public final  DateTimePath<java.time.LocalDate> startDate;
         if (LOCAL_DATE.equals(javaType)) {
             result.append(" DateTimePath<java.time.LocalDate> ")
-                  .append(property)
-                  .append(" = createDateTime(\"").append(property).append("\",")
-                  .append("java.time.LocalDate.class)");
+                    .append(property)
+                    .append(" = createDateTime(\"").append(property).append("\",")
+                    .append("java.time.LocalDate.class)");
         }
 
         //public final NumberPath<Long> orderNo = createNumber("orderNo", Long.class);
         String javaNumTypeString = "Integer,Long,BigDecimal";
         if (javaNumTypeString.contains(javaType)) {
             result.append(" NumberPath<").append(javaType).append("> ")
-                .append(property)
-                .append(" = createNumber(\"")
-                .append(property)
-                .append("\", ")
-                .append(javaType).append(".class)");
+                    .append(property)
+                    .append(" = createNumber(\"")
+                    .append(property)
+                    .append("\", ")
+                    .append(javaType).append(".class)");
         }
 
         //public final BooleanPath actNonExpired = createBoolean("actNonExpired");
         if (BOOLEAN.equals(javaType)) {
             result.append("BooleanPath ")
-                .append(property)
-                .append(" = createBoolean(\"")
-                .append(property)
-                .append("\")");
+                    .append(property)
+                    .append(" = createBoolean(\"")
+                    .append(property)
+                    .append("\")");
         }
 
         return result.toString();
     }
 
-
-    @SuppressWarnings("unchecked")
     public static <T> T cast(Object obj) {
         return (T) obj;
     }

@@ -3,8 +3,8 @@ package com.dataz.xcode.data;
 import com.dataz.xcode.entity.CmEntity;
 import com.dataz.xcode.entity.CmField;
 import com.google.common.base.Strings;
-import javafx.util.Pair;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +18,25 @@ public interface IMetaData {
      * @param entityName 实体名称
      * @return 实体信息
      */
-    Optional<CmEntity> queryEntityMeta(String entityName);
+    default Optional<CmEntity> queryEntityMeta(String entityName){
+        List<Map<String,Object>> entityList = doQueryTable(entityName, false);
+        if (entityList.size()>0){
+            Map<String,Object> retMap = entityList.get(0);
+            CmEntity cmEntity = buildEntity(entityName, retMap);
+
+            return Optional.of(cmEntity);
+        }
+
+        return Optional.empty();
+    }
+
+    /**
+     * 根据名称条件查询表信息集合
+     * @param entityName 表名称
+     * @param isLike     是否模糊查询
+     * @return           返回集合
+     */
+    List<Map<String, Object>> doQueryTable(String entityName, boolean isLike);
 
     /**
      * 查询实体元信息
@@ -55,7 +73,7 @@ public interface IMetaData {
      * @param isLike     是否模糊查询
      * @return           pair
      */
-    default Pair<String, String> buildQueryEntitySql(String entityName, String entitySql, boolean isLike){
+    default AbstractMap.SimpleEntry<String, String> buildQueryEntitySql(String entityName, String entitySql, boolean isLike){
         String condition = entityName.toUpperCase();
 
         if (!Strings.isNullOrEmpty(entityName)) {
@@ -66,7 +84,6 @@ public interface IMetaData {
                 entitySql += " AND A.TABLE_NAME = ? ";
             }
         }
-
-        return new Pair<>(condition, entitySql);
+        return new AbstractMap.SimpleEntry<>(condition, entitySql);
     }
 }

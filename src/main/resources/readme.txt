@@ -1,5 +1,8 @@
 xcode用户手册
-
+======================================================================================
+xcode-5.3版本增加内容
+支持postgreSql数据库，根据最新代码规范修改了模板代码
+======================================================================================
 1、功能介绍
 用户配置数据库连接，获取数据库表信息，生成表对应代码，存放在gencode目录(用户可以配置)。
 目录和文件说明：
@@ -14,10 +17,10 @@ application-postgresql.yml 配置postgresql数据库连接;
 application.properties 是用户配置,用于配置具体数据库连接, 代码包前缀以及需要生成表名称配置.
 
 3、启动程序
-java -jar -Dfile.encoding=UTF8 xcode-5.2.jar
+java -jar -Dfile.encoding=UTF8 xcode-5.3.jar
 
 切换数据库连接
-java -jar -Dfile.encoding=UTF8 xcode-5.2.jar --spring.profiles.active=mysql
+java -jar -Dfile.encoding=UTF8 xcode-5.3.jar --spring.profiles.active=mysql
 
 4、生成代码
 用户设置好相关配置后，在shell命令行输入命令: xcode 即生成代码。exit 命令退出。

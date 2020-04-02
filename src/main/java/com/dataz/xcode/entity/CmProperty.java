@@ -71,7 +71,7 @@ public class CmProperty {
         fields.forEach(field -> {
 
             String proName = fieldToProperty(field.getFieldName());
-            String javaType = dbTypeToJavaType(field, dbType);
+            String javaType = dbTypeToJavaType(field);
             // oracle:Y,mysql:YES
             boolean isNull = field.getNullable().toUpperCase().contains("Y");
 

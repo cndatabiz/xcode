@@ -3,13 +3,12 @@ package com.dataz.xcode.data;
 import com.dataz.xcode.contants.SqlConstant;
 import com.dataz.xcode.entity.CmEntity;
 import com.dataz.xcode.entity.CmField;
-import javafx.util.Pair;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -26,19 +25,6 @@ public class OracleMetaData implements IMetaData {
     }
 
     @Override
-    public Optional<CmEntity> queryEntityMeta(String entityName) {
-         List<Map<String,Object>> entityList = doQueryTable(entityName, false);
-        if (entityList.size()>0){
-            Map<String,Object> retMap = entityList.get(0);
-            CmEntity cmEntity = buildEntity(entityName, retMap);
-
-            return Optional.of(cmEntity);
-        }
-
-        return Optional.empty();
-    }
-
-    @Override
     public List<CmEntity> queryEntityList(String entityName) {
         List<Map<String, Object>> entityList = doQueryTable(entityName, true);
 
@@ -50,12 +36,13 @@ public class OracleMetaData implements IMetaData {
         return jdbcTemplate.query(SqlConstant.ORACLE_FIELD_SQL,new CFieldRowMapper(),entityName.toUpperCase());
     }
 
-    private List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
+    @Override
+    public List<Map<String, Object>> doQueryTable(String entityName, boolean isLike) {
         String entitySql = SqlConstant.ORACLE_ENTITY_SQL;
-        String condition ;
-        Pair<String, String> pair = buildQueryEntitySql(entityName, entitySql, isLike);
 
-        condition = pair.getKey();
+        AbstractMap.SimpleEntry<String, String> pair = buildQueryEntitySql(entityName, entitySql, isLike);
+
+        String condition = pair.getKey();
         entitySql = pair.getValue();
 
         log.debug("query table info sql : {}", entitySql);
