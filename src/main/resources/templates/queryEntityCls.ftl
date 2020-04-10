@@ -16,7 +16,6 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class Q${entityClassName} extends EntityPathBase<${entityClassName}> {
     private static final long serialVersionUID = 1L;
-    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final Q${entityClassName} ${entityObjectName} = new Q${entityClassName}("${entityObjectName}");
 
