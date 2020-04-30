@@ -1,23 +1,29 @@
 package ${bizImplPackage};
 
-import com.xzkingdee.wcm.biz.impl.BaseEntityBizImpl;
+import com.querydsl.core.types.Predicate;
 import  ${bizPackage}.${instanceName}Biz;
-
+import ${reqPackage}.${instanceName}Req;
 import ${entityPackage}.${entityClassName};
 import ${entityPackage}.Q${entityClassName};
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ${daoPackage}.${daoClassName};
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<#if propNameList?seq_contains("createDate") || propNameList?seq_contains("updateDate")>
+import java.time.LocalDateTime;
+</#if>
+
 /**
- * ${instanceName} Service
+ * Description: ${instanceName}-业务接口实现类
+ *
  * @author Coder
  */
+@Slf4j
 @Service
 class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${entityClassName}, String> implements ${instanceName}Biz {
-    private static final Logger LOGGER = LogManager.getLogger(${instanceName}BizImpl.class);
 
     private final Q${entityClassName} q${instanceName} = Q${entityClassName}.${entityObjectName};
     private final DtoMapper mapper;
@@ -27,52 +33,41 @@ class ${instanceName}BizImpl extends CommonBizImpl<${instanceName}Repository, ${
         this.mapper = mapper;
     }
 
-    /**
-    * 分页查询${entityDesc}
-    *
-    * @param predicate   查询参数
-    * @param pageable    分页参数
-    * @return ${entityDesc}列表
-    */
     @Override
-    Page<${instanceName}Vo> queryByPage(Predicate predicate, Pageable pageable){
+    public Page<${instanceName}Vo> search(Predicate predicate, Pageable pageable){
         Page<${entityClassName}> page = queryByPage(predicate, pageable);
-        return new PageListJsonResult<>(page.map(entity -> mapper.map(entity, ${instanceName}Vo.class)));
+        return page.map(entity -> mapper.map(entity, ${instanceName}Vo.class));
     }
 
     @Override
-    long countBy${instanceName}Id(String id){
-        return count(q${instanceName}.id.eq(id));
+    public ${instanceName}Vo detail(String id) {
+        return mapper.map(fetchById(id), ${instanceName}Vo.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${entityClassName} add(${instanceName}Req req) {
+    public void add(${instanceName}Req req) {
         ${entityClassName} entity = mapper.map(req, ${entityClassName}.class);
         <#if propNameList?seq_contains("createDate")>
         entity.setCreateDate(LocalDateTime.now());
         </#if>
-
-
         saveEntity(entity);
-        return entity;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ${entityClassName} modify(${instanceName}Req req) {
+    public void modify(${instanceName}Req req) {
         ${entityClassName} entity = fetchById(req.getId());
         mapper.map(req, entity);
         <#if propNameList?seq_contains("updateDate")>
         entity.setUpdateDate(LocalDateTime.now());
         </#if>
         saveEntity(entity);
-        return entity;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    void remove(String id){
+    public void remove(String id){
         repository.deleteById(id);
     }
 }

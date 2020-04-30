@@ -1,16 +1,18 @@
 package ${entityPackage};
 
-import static com.querydsl.core.types.PathMetadataFactory.*;
-
-import com.querydsl.core.types.dsl.*;
-
-import com.querydsl.core.types.PathMetadata;
-import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
+import com.querydsl.core.types.PathMetadata;
+import com.querydsl.core.types.dsl.DateTimePath;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.StringPath;
+
+import javax.annotation.Generated;
+
+import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 
 /**
  * Q${entityClassName} is a Querydsl query type for ${entityClassName}
+ *
  * @author Coder
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
@@ -18,7 +20,6 @@ public class Q${entityClassName} extends EntityPathBase<${entityClassName}> {
     private static final long serialVersionUID = 1L;
 
     public static final Q${entityClassName} ${entityObjectName} = new Q${entityClassName}("${entityObjectName}");
-
 <#if isExtends>
     public final com.xzkingdee.wcm.dao.common.entities.QAbstractBaseEntity _super;
 

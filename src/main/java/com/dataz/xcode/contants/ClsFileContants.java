@@ -74,7 +74,7 @@ public class ClsFileContants {
     }
 
     public static String getControllerClassName(String className) {
-        return className.concat("Manage").concat(Web_SUFFIX).concat(JAVA_EXT);
+        return className.concat(Web_SUFFIX).concat(JAVA_EXT);
     }
 
     private static String getFullPackage(String basePackage, PackageEnum packageType) {

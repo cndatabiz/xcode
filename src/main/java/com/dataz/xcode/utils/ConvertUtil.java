@@ -43,7 +43,7 @@ public class ConvertUtil {
                 break;
             case "DECIMAL":
             case "NUMBER":
-            case "NUMBERIC":
+            case "NUMERIC":
             case "INT":
             case "LONG":
             case "FLOAT":
@@ -107,7 +107,7 @@ public class ConvertUtil {
             result.append("@NotNull(")
                     .append("message = \"").append(field.getFieldDesc()).append("不能为空.\"");
             if ("true".equalsIgnoreCase(enableValidateGroup)) {
-                result.append(", group = ").append(validateGroupName).append(".class");
+                result.append(", groups = ").append(validateGroupName).append(".class");
             }
             result.append(")");
         }

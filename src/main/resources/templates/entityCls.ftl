@@ -2,21 +2,25 @@ package ${entityPackage};
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import <#if !isExtends>java.io.Serializable;</#if>
 
 /**
- * ${entityDesc} Entity
+ * Description: ${entityDesc}实体类
+ *
  * @author Coder
  */
-
 @Setter
 @Getter
 @Entity
 @Table(name = "${tableName}")
-public class ${entityClassName} <#if isExtends>extends ${baseClass}</#if> {
+public class ${entityClassName} <#if isExtends>extends ${baseClass}<#else>implements Serializable</#if> {
 
 <#list propList as prop>
     /**

@@ -37,7 +37,7 @@ import static com.dataz.xcode.contants.FtlContants.*;
 public class Xcode {
     private final Generator generator;
     private final TemplateData templateData;
-    private final ExecutorService executorService ;
+    private final ExecutorService executorService;
     private final Environment env;
 
     @Value("${base.package.name}")
@@ -55,13 +55,13 @@ public class Xcode {
 
     public void startTask(String todos) throws IOException {
 
-        if (Strings.isNotEmpty(todos)){
+        if (Strings.isNotEmpty(todos)) {
             tables = todos;
         }
 
         // 初始化基本配置
         Map<String, String> baseCfg = Maps.newHashMap();
-        String codeDir = env.getProperty("xCode.targetDir","genCode");
+        String codeDir = env.getProperty("xCode.targetDir", "genCode");
         baseCfg.put("xcode.target.dir", codeDir);
         baseCfg.put("base.package.name", basePackName);
         baseCfg.put("base.entity.isExtend", env.getProperty("baseClass.isExtend"));
@@ -81,7 +81,7 @@ public class Xcode {
 
 
         Path targetDir = Paths.get(codeDir);
-        if (Files.notExists(targetDir)){
+        if (Files.notExists(targetDir)) {
             Files.createDirectories(targetDir);
         }
 
@@ -96,18 +96,17 @@ public class Xcode {
             try {
                 log.info(future.get());
             } catch (InterruptedException | ExecutionException e) {
-
-                log.error("errorMessage:{}", e);
+                log.error("errorMessage:{}", e.getMessage());
             }
         }
     }
 
-    private List<Future<String>> exeTasks(List<String> tableNames, Map<String, Object> inMap, Path targetDir){
+    private List<Future<String>> exeTasks(List<String> tableNames, Map<String, Object> inMap, Path targetDir) {
         List<Callable<String>> callableTasks = new ArrayList<>();
         tableNames.forEach(tableName -> callableTasks.add(() -> {
             Map<String, Object> map = Maps.newHashMap(inMap);
             Map<String, Object> outMap = templateData.buildFtlData(map, tableName);
-            generator.doGenFileTask(outMap,targetDir);
+            generator.doGenFileTask(outMap, targetDir);
 
             return tableName.concat(" generate finished.");
         }));
@@ -116,14 +115,13 @@ public class Xcode {
         try {
             futures = executorService.invokeAll(callableTasks);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
-        executorService.shutdown();
-
+        /* Closed:: executorService.shutdown(); */
         return futures;
     }
 
-    public void registerTask(Map<String, GenTask> taskMap){
+    public void registerTask(Map<String, GenTask> taskMap) {
         taskMap.forEach((key, value) -> {
             log.debug("add gen {} task to generator.", key);
             generator.addTask(value);

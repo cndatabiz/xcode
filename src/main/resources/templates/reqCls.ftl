@@ -3,19 +3,21 @@ package ${reqPackage};
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * ${instanceName}Req is a Request entity object for Adding Or Modification.
+ * Description: ${instanceName}Req is a Request entity object for Adding Or Modification.
+ *
  * @author Coder
  */
-
 @Setter
 @Getter
 public class ${instanceName}Req {
 <#list propList as prop>
 
     /**
-    * ${prop.propDesc}
-    */
+     * ${prop.propDesc}
+     */
     <#if !prop.nullable>
     ${prop.annNotNull}
     </#if>
@@ -23,6 +25,5 @@ public class ${instanceName}Req {
     ${prop.annInFormat}
     </#if>
     private ${prop.javaType} ${prop.propName};
-
 </#list>
 }
