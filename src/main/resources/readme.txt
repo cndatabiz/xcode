@@ -6,7 +6,7 @@ xcode-5.3版本增加内容
 1、功能介绍
 用户配置数据库连接，获取数据库表信息，生成表对应代码，存放在gencode目录(用户可以配置)。
 目录和文件说明：
-config 目录是配置文件; gencode生成代码目录; readme.txt是用户指南, xcode-5.1.jar是运行程序。
+config 目录是配置文件; gencode生成代码目录; readme.txt是用户指南, xcode-5.x.jar是运行程序。
 
 2、程序参数配置
 application.yml 是系统和一些公共配置,一般不需要更改;
@@ -17,7 +17,7 @@ application-postgresql.yml 配置postgresql数据库连接;
 application.properties 是用户配置,用于配置具体数据库连接, 代码包前缀以及需要生成表名称配置.
 
 3、启动程序
-java -jar -Dfile.encoding=UTF8 xcode-5.3.jar
+java -jar -Dfile.encoding=UTF8 xcode-5.x.jar
 
 切换数据库连接
 java -jar -Dfile.encoding=UTF8 xcode-5.3.jar --spring.profiles.active=mysql
